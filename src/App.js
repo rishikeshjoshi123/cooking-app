@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext } from 'react'
+
+import CounterClassBased from './Components/CounterClassBased';
+import CounterHooks from './Components/CounterHooks';
+
+export const C = createContext(); //creating context and exporting it
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <C.Provider value={
+        {
+          msg1: 'shiva', msg2: 'shambho'
+        }
+      }>
+        <h1>Component class based</h1>
+        <CounterClassBased initCount={0} />
+
+
+        <h1>Component Function based</h1>
+        <CounterHooks initCount={100} />
+      </C.Provider>
+
+    </>
+  )
 }
 
 export default App;
