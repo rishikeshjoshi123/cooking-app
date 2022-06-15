@@ -1,0 +1,44 @@
+.btn{
+font-size: inherit;
+font-weight: bold;
+font-family: inherit;
+border: none;
+background: none;
+outline: none;
+
+border-radius: 5px;
+padding: 0.3rem 0.5rem;
+cursor: pointer;
+
+}
+
+.btn--primary{
+    border: solid 1px rgb(21, 242, 242);
+    color: rgb(21, 242, 242);
+}
+.btn--primary:hover{
+    /* border: none; */
+    color: white;
+    background: rgb(21, 242, 242);
+}
+
+.btn--success{
+    border: solid 1px rgb(33, 227, 11);
+    color: rgb(33, 227, 11);
+}
+.btn--success:hover{
+    /* border: none; */
+    color: white;
+    background: rgb(33, 227, 11);
+}
+
+
+.btn--danger{
+    border: solid 1px rgb(248, 81, 31);
+    color: rgb(248, 81, 31);
+}
+.btn--danger:hover{
+    /* border: none; */
+    color: white;
+    background: rgb(248, 81, 31);
+}
