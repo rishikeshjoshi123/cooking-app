@@ -1,18 +1,83 @@
-import React from 'react'
+import { React, useState, createContext, useEffect } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 
 import '../CSS/app.css'
-
 import RecipeList from './RecipeList';
+import RecipeEdit from './RecipeEdit';
 
-function App() {
+const LOCAL_STORAGE_KEY = 'cookingWithReact.recipies';
+
+export const RecipeContext = createContext(); //creating context
+
+export default function App() {
+  const [recipies, setRecipes] = useState(foodItems); //creating state
+  const [selectedRecipe, editSelectedRecipe] = useState();
+
+  // only runs on app startup
+  useEffect(() => {
+    const pkg = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (pkg)
+      setRecipes(JSON.parse(pkg));
+  }, [])
+
+  // runs whenever recipies is modified
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(recipies));
+  }, [recipies])
+
+
+
+  function handleRecipeAdd() {
+    const newRecipe = {
+      id: uuidv4(),
+      name: 'New food',
+      cookingTime: '1.0',
+      servings: 1,
+      Instructions: "Put Instructions here.\n And Press enter button.",
+      ingredients: [{ id: uuidv4(), name: 'ing name', amount: '1' },
+      { id: uuidv4(), name: 'ing name', amount: '1' }, { id: uuidv4(), name: 'ing name', amount: '1' }]
+    }
+    setRecipes([...recipies, newRecipe]);
+  }
+  function handleRecipeDelete(id) {
+    setRecipes(recipies.filter(r => r.id !== id));
+  }
+  function handleRecipeSelect(id) {
+    editSelectedRecipe(id);
+  }
+  function handleRecipeChange(id, changed) {
+    let newRecipies = [...recipies];
+    let index = newRecipies.findIndex(r => r.id === id);
+    newRecipies[index] = changed;
+
+    setRecipes(newRecipies);
+  }
+
+  const recipeContextValue = {
+    handleRecipeAdd, handleRecipeDelete, handleRecipeSelect, handleRecipeChange
+  };
+
+  const editThisRecipe = recipies.find(R => R.id === selectedRecipe);
+
   return (
     <>
-      <RecipeList recipies={foodItems} />
+      <div className="page-container">
+        <RecipeContext.Provider value={recipeContextValue}>
+          <RecipeList recipies={recipies} />
+
+          {editThisRecipe && <RecipeEdit recipieValues={editThisRecipe} />}
+        </ RecipeContext.Provider>
+
+
+      </div>
+
     </>
   )
 }
 
 
+
+//Default dummy data
 const foodItems = [{
   id: 1,
   name: 'Shahi Panner',
@@ -70,4 +135,3 @@ const foodItems = [{
   { id: 3, name: 'Sugar', amount: '100g' }]
 }]
 
-export default App;

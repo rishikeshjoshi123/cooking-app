@@ -1,0 +1,84 @@
+/* Container of this page  */
+.recipe-edit{
+    display: flex;
+    flex-direction: column;
+   
+}
+
+/* Cross button to close this page  */
+.recipe-edit__close-button-container{
+    display: flex;
+    justify-content: right;
+    padding-top: 1rem; padding-right: 1rem;
+}
+.recipe-edit__close-button{
+    font-size: 1.5rem; 
+}
+
+
+/* Recipe details section starts*/
+.recipe-edit__details{
+    display: flex;
+}
+.details__section{
+    display: flex;
+    flex-direction: column;
+
+}
+.section__row{
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+}
+.section__row--label{
+    font-weight: bolder;
+}
+.section__row--input{
+    font-size: inherit;
+    font-family: inherit;
+border: 1px solid black;
+
+    /* this will make instructions text area have a scroll bar  */
+    overflow-y: scroll;
+    resize: none;
+}
+/* Recipe details section ends*/
+
+
+/* Ingredients section starts  */
+.add-ingredients-container{
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+
+}
+.add-ingredient-row-list{
+    padding-left: 0.5rem;
+}
+.add-ingredients-heading{
+    font-weight: bolder;
+    padding-bottom: 1rem;
+}
+.ingredient__row{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0.5rem;
+}
+.row-input-container{
+    display: flex;
+}
+.input-wrapper{
+    padding-right: 0.5rem;
+}
+
+.row__close-btn-container{
+    display: flex;
+    align-items:center;
+}
+.ingredient__row-close-btn{
+    font-size: 15px;
+}
+
+.add-ingredient-btn-container{
+  display: flex; 
+  justify-content: center;
+}

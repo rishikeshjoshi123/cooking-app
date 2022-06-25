@@ -1,9 +1,13 @@
-import React from 'react'
+import { React, useContext } from 'react'
 import IngredientsList from './IngredientsList';
+import { RecipeContext } from './App'
 
 export default function Recipe(props) {
 
+    const { handleRecipeDelete, handleRecipeSelect } = useContext(RecipeContext);
+
     const {
+        id,
         name,
         cookingTime,
         servings,
@@ -19,8 +23,15 @@ export default function Recipe(props) {
                     <h3 className='recipe__title '>{name}</h3>
 
                     <div className='btn__container'>
-                        <button className='btn btn--success mr-1'>Edit</button>
-                        <button className='btn btn--danger'>Delete</button>
+                        <button
+                            className='btn btn--success mr-1'
+                            onClick={() => handleRecipeSelect(id)}
+                        >Edit</button>
+                        <button
+                            className='btn btn--danger'
+                            onClick={() => handleRecipeDelete(id)}
+                        >
+                            Delete</button>
                     </div>
                 </div>
 
