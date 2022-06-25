@@ -18,6 +18,13 @@ export default function RecipeEdit({ recipieValues }) {
     function handleChange(changes) {
         handleRecipeChange(id, { ...recipieValues, ...changes });
     }
+    function handleIngredientChange(ingId, ingChange) {
+        let newIngredient = [...ingredients];
+        let index = newIngredient.findIndex(i => i.id === ingId);
+        newIngredient[index] = { ...newIngredient[index], ...ingChange };
+
+        handleChange({ ingredients: newIngredient });
+    }
     return (
         <>
             <div className='recipe-edit'>
@@ -42,13 +49,14 @@ export default function RecipeEdit({ recipieValues }) {
                         </div>
                         <div className='section__row'>
                             <input className='section__row--input' type="number" min="1" name='servings' value={servings}
-                                onInput={e => handleChange({ servings: e.target.value })} />
+                                onInput={e => handleChange({ servings: parseInt(e.target.value) || '' })} />
                         </div>
 
                         <div className='section__row'>
                             <textarea className='section__row--input' name="instructions" id="instructions_id" cols="30" rows="5"
                                 value={Instructions}
-                                onInput={e => handleChange({ Instructions: e.target.value })}></textarea>
+                                onInput={e => handleChange({ Instructions: e.target.value })}
+                            />
                         </div>
                     </div>
                 </div>
@@ -58,13 +66,13 @@ export default function RecipeEdit({ recipieValues }) {
                         <div className='add-ingredients-heading'>Ingredients</div>
                         <div className="add-ingredient-row-list">
                             {
-                                ingredients.map(I =>
-                                    <RecipeIngredientEdit key={I.id} {...I} />
+                                ingredients.map(I => {
+                                    return (<RecipeIngredientEdit key={I.id} ing={[I, handleIngredientChange]} />);
+                                }
                                 )
                             }
                         </div>
                     </div>
-
 
                     <div className="add-ingredient-btn-container">
                         <button className='btn btn--primary'>Add Ingredient</button>
