@@ -11,16 +11,16 @@ export const RecipeContext = createContext(); //creating context
 
 export default function App() {
   const [recipies, setRecipes] = useState(foodItems); //creating state
-  const [selectedRecipe, editSelectedRecipe] = useState();
+  const [selectedRecipe, setSelectedRecipe] = useState();
 
-  // only runs on app startup
+  // only runs on time on app startup
   useEffect(() => {
     const pkg = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (pkg)
       setRecipes(JSON.parse(pkg));
   }, [])
 
-  // runs whenever recipies is modified
+  // runs whenever recipies(values inside array) is modified
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(recipies));
   }, [recipies])
@@ -42,9 +42,15 @@ export default function App() {
   function handleRecipeDelete(id) {
     setRecipes(recipies.filter(r => r.id !== id));
   }
+  // to edit recipie
   function handleRecipeSelect(id) {
-    editSelectedRecipe(id);
+    setSelectedRecipe(id);
   }
+  //to close edit recipe section( by clicking on Cross sign)
+  function handleRecipeEditClose() {
+    setSelectedRecipe(null);
+  }
+  //value of recipie is changed by input
   function handleRecipeChange(id, changed) {
     let newRecipies = [...recipies];
     let index = newRecipies.findIndex(r => r.id === id);
@@ -55,7 +61,7 @@ export default function App() {
 
 
   const recipeContextValue = {
-    handleRecipeAdd, handleRecipeDelete, handleRecipeSelect, handleRecipeChange
+    handleRecipeAdd, handleRecipeDelete, handleRecipeSelect, handleRecipeChange, handleRecipeEditClose
   };
 
   const editThisRecipe = recipies.find(R => R.id === selectedRecipe);

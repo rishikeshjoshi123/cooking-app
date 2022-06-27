@@ -2,8 +2,7 @@ import { React, useContext } from 'react'
 import '../CSS/recipe-edit.css'
 import RecipeIngredientEdit from './RecipeIngredientEdit'
 import { RecipeContext } from './App';
-
-
+import { v4 as uuidv4 } from 'uuid';
 
 export default function RecipeEdit({ recipieValues }) {
     const {
@@ -13,7 +12,7 @@ export default function RecipeEdit({ recipieValues }) {
         servings,
         Instructions,
         ingredients } = recipieValues;
-    const { handleRecipeChange } = useContext(RecipeContext);
+    const { handleRecipeChange, handleRecipeEditClose } = useContext(RecipeContext);
 
     function handleChange(changes) {
         handleRecipeChange(id, { ...recipieValues, ...changes });
@@ -25,11 +24,22 @@ export default function RecipeEdit({ recipieValues }) {
 
         handleChange({ ingredients: newIngredient });
     }
+    function handleIngredientRemove(ingid) {
+        let newIngredient = ingredients.filter(I => I.id !== ingid);
+        handleChange({ ingredients: newIngredient });
+    }
+    function handleIngredientAddition() {
+        let newIngredient = [...ingredients];
+        newIngredient.push(
+            { id: uuidv4(), name: '', amount: '' }
+        );
+        handleChange({ ingredients: newIngredient });
+    }
     return (
         <>
             <div className='recipe-edit'>
                 <div className='recipe-edit__close-button-container'>
-                    <button className='btn recipe-edit__close-button'>&times;</button>
+                    <button onClick={() => handleRecipeEditClose()} className='btn recipe-edit__close-button'>&times;</button>
                 </div>
                 <div className='recipe-edit__details'>
                     <div className='details__section'>
@@ -67,7 +77,7 @@ export default function RecipeEdit({ recipieValues }) {
                         <div className="add-ingredient-row-list">
                             {
                                 ingredients.map(I => {
-                                    return (<RecipeIngredientEdit key={I.id} ing={[I, handleIngredientChange]} />);
+                                    return (<RecipeIngredientEdit key={I.id} ing={[I, handleIngredientChange, handleIngredientRemove]} />);
                                 }
                                 )
                             }
@@ -75,7 +85,7 @@ export default function RecipeEdit({ recipieValues }) {
                     </div>
 
                     <div className="add-ingredient-btn-container">
-                        <button className='btn btn--primary'>Add Ingredient</button>
+                        <button onClick={() => handleIngredientAddition()} className='btn btn--primary'>Add Ingredient</button>
                     </div>
                 </div>
 

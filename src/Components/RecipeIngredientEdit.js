@@ -1,7 +1,7 @@
 import { React } from 'react'
 
 export default function RecipeIngredientEdit({ ing }) {
-    const [ingredient, handleIngredientChange] = ing;
+    const [ingredient, handleIngredientChange, handleIngredientRemove] = ing;
     return (
         <>
             <div className='ingredient__row'>
@@ -20,7 +20,7 @@ export default function RecipeIngredientEdit({ ing }) {
 
 
                 <div className='row__close-btn-container'>
-                    <button className='btn btn--danger ingredient__row-close-btn'>&times;</button>
+                    <button onClick={() => handleIngredientRemove(ingredient.id)} className='btn btn--danger ingredient__row-close-btn'>&times;</button>
                 </div>
             </div>
         </>
