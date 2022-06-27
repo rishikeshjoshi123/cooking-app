@@ -1,40 +1,19 @@
 import { React, useContext } from 'react'
+import { v4 as uuidv4 } from 'uuid';
+
+import { RecipeContext } from './App';
+
 import '../CSS/recipe-edit.css'
 import RecipeIngredientEdit from './RecipeIngredientEdit'
-import { RecipeContext } from './App';
-import { v4 as uuidv4 } from 'uuid';
 
 export default function RecipeEdit({ recipieValues }) {
     const {
-        id,
-        name,
-        cookingTime,
-        servings,
-        Instructions,
-        ingredients } = recipieValues;
-    const { handleRecipeChange, handleRecipeEditClose } = useContext(RecipeContext);
+        id, name, cookingTime, servings, Instructions, ingredients
+    } = recipieValues;
+    const { handleRecipeChange,
+        handleRecipeEditClose
+    } = useContext(RecipeContext);
 
-    function handleChange(changes) {
-        handleRecipeChange(id, { ...recipieValues, ...changes });
-    }
-    function handleIngredientChange(ingId, ingChange) {
-        let newIngredient = [...ingredients];
-        let index = newIngredient.findIndex(i => i.id === ingId);
-        newIngredient[index] = { ...newIngredient[index], ...ingChange };
-
-        handleChange({ ingredients: newIngredient });
-    }
-    function handleIngredientRemove(ingid) {
-        let newIngredient = ingredients.filter(I => I.id !== ingid);
-        handleChange({ ingredients: newIngredient });
-    }
-    function handleIngredientAddition() {
-        let newIngredient = [...ingredients];
-        newIngredient.push(
-            { id: uuidv4(), name: '', amount: '' }
-        );
-        handleChange({ ingredients: newIngredient });
-    }
     return (
         <>
             <div className='recipe-edit'>
@@ -85,7 +64,7 @@ export default function RecipeEdit({ recipieValues }) {
                     </div>
 
                     <div className="add-ingredient-btn-container">
-                        <button onClick={() => handleIngredientAddition()} className='btn btn--primary'>Add Ingredient</button>
+                        <button onClick={() => handleIngredientAddition()} className='btn btn--dark add-ingredient-btn'>Add Ingredient</button>
                     </div>
                 </div>
 
@@ -94,4 +73,27 @@ export default function RecipeEdit({ recipieValues }) {
         </>
 
     )
+
+    // ---- FUNCTIONS ----
+    function handleChange(changes) {
+        handleRecipeChange(id, { ...recipieValues, ...changes });
+    }
+    function handleIngredientChange(ingId, ingChange) {
+        let newIngredient = [...ingredients];
+        let index = newIngredient.findIndex(i => i.id === ingId);
+        newIngredient[index] = { ...newIngredient[index], ...ingChange };
+
+        handleChange({ ingredients: newIngredient });
+    }
+    function handleIngredientRemove(ingid) {
+        let newIngredient = ingredients.filter(I => I.id !== ingid);
+        handleChange({ ingredients: newIngredient });
+    }
+    function handleIngredientAddition() {
+        let newIngredient = [...ingredients];
+        newIngredient.push(
+            { id: uuidv4(), name: '', amount: '' }
+        );
+        handleChange({ ingredients: newIngredient });
+    }
 }

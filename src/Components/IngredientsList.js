@@ -13,6 +13,5 @@ export default function IngredientsList({ ingList }) {
             {ingredientElements}
         </>
         // NOTE: If we dont wrap with <>,</> here then we'll get error that 'react cant allow object as childs of component'
-
     )
 }

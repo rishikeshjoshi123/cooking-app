@@ -1,6 +1,7 @@
 .recipe-list{
     border-right: solid black 3px;
     min-width: 50%;
+    margin-top: 0.8rem;
 }
 
 .recipe-list__add-recipe-btn-container{

@@ -1,23 +1,33 @@
 /* Container of this page  */
-.recipe-edit{
+.recipe-add{
     display: flex;
     flex-direction: column;
     margin-top: 0.8rem;
+   
+}
+
+/* Save recipe button  */
+.recipe-add__save-recipe-btn-container{
+display: flex;
+justify-content: center;
+}
+.save-recipe-btn{
+
 }
 
 /* Cross button to close this page  */
-.recipe-edit__close-button-container{
+.recipe-add__close-button-container{
     display: flex;
     justify-content: right;
     padding-top: 1rem; padding-right: 1rem;
 }
-.recipe-edit__close-button{
+.recipe-add__close-button{
     font-size: 1.5rem; 
 }
 
 
 /* Recipe details section starts*/
-.recipe-edit__details{
+.recipe-add__details{
     display: flex;
 }
 .details__section{
@@ -85,6 +95,8 @@ border: 1px solid black;
   display: flex; 
   justify-content: center;
 }
+
 .add-ingredient-btn{
-    font-size: 0.8rem;
+    font-size:  0.8rem;
+    
 }

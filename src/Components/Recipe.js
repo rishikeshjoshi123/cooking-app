@@ -7,12 +7,7 @@ export default function Recipe(props) {
     const { handleRecipeDelete, handleRecipeSelect } = useContext(RecipeContext);
 
     const {
-        id,
-        name,
-        cookingTime,
-        servings,
-        Instructions,
-        ingredients
+        id, name, cookingTime, servings, Instructions, ingredients
     } = props;
 
     return (
@@ -34,8 +29,6 @@ export default function Recipe(props) {
                             Delete</button>
                     </div>
                 </div>
-
-
 
                 <div>
                     <div className='recipe__row'>
@@ -60,7 +53,6 @@ export default function Recipe(props) {
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
